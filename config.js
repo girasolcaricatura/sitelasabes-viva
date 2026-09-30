@@ -28,8 +28,9 @@ window.CONFIG = {
   },
 
   // Eventos del circuito (en el orden en que aparecen al configurar).
-  //   nombre: el artista o equipo (se usa en el menú y para las preguntas).
-  //   gira:   nombre del tour; si existe, es lo que se ve en grande en pantalla.
+  //   nombre: el artista o equipo. Es solo interno: por derechos, el nombre del
+  //           artista NUNCA aparece en pantalla.
+  //   gira:   nombre del tour; es lo que se ve en pantalla en los conciertos.
   //   claves: qué bancos de preguntas usa (columna EVENTO del Excel).
   //           Un evento puede mezclar varios bancos, como el Clásico Regio.
   eventos: [

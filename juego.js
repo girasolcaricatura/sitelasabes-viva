@@ -38,7 +38,8 @@
   if (!TIEMPOS.includes(ajustes.tiempo)) ajustes.tiempo = C.tiempo;
   if (!(ajustes.evento >= 0 && ajustes.evento < EVENTOS.length)) ajustes.evento = 0;
   const evento = () => EVENTOS[ajustes.evento];
-  // Lo que se ve en grande: el nombre del tour (si lo hay) o el del equipo.
+  // Lo que se ve en pantalla: el nombre del tour (si lo hay) o el del equipo.
+  // Por derechos, el nombre del artista nunca aparece en pantalla.
   const titulo = (ev) => ev.gira || ev.nombre;
   const guardarAjustes = () => guardar("stls.ajustes3", ajustes);
 
@@ -231,7 +232,7 @@
       el("div", "p-arriba", [el("span", "p-titulo", "El juego de hoy es de:")]),
       el("div", "p-valor", [
         el("div", "grande", titulo(ev)),
-        nq ? el("div", "detalle", (ev.gira ? [ev.nombre, ev.fecha] : [ev.tipo, ev.fecha]).filter(Boolean).join(" · "))
+        nq ? el("div", "detalle", [ev.tipo, ev.fecha].filter(Boolean).join(" · "))
            : el("div", "aviso", "Este evento no tiene preguntas"),
         el("div", "tiempo", [el("span", "", "▲ ▼"), el("b", "", ajustes.tiempo + " segundos"), el("span", "", "por partida")])
       ]),
@@ -461,7 +462,7 @@
   const enJuego = () => ["pista", "contesta", "calificar", "resultado"].includes(estado);
   function opciones() {
     const ops = [
-      { t: "Evento de hoy", v: evento().nombre, mover: (d) => { ajustes.evento = (ajustes.evento + d + EVENTOS.length) % EVENTOS.length; } },
+      { t: "Evento de hoy", v: titulo(evento()), mover: (d) => { ajustes.evento = (ajustes.evento + d + EVENTOS.length) % EVENTOS.length; } },
       { t: "Tiempo por partida", v: ajustes.tiempo + " s", mover: (d) => { const i = TIEMPOS.indexOf(ajustes.tiempo); ajustes.tiempo = TIEMPOS[(i + d + TIEMPOS.length) % TIEMPOS.length]; } },
       { t: "Sonido", v: ajustes.sonido ? "Sí" : "No", mover: () => { ajustes.sonido = !ajustes.sonido; } }
     ];
@@ -477,7 +478,7 @@
       const d = el("div", "op" + (i === sel ? " sel" : ""), [el("span", "", o.t), el("span", "val", o.v ? (o.mover ? "◀  " + o.v + "  ▶" : o.v) : "")]);
       menuOps.appendChild(d);
     });
-    menuInfo.textContent = `Preguntas: ` + EVENTOS.map((e) => `${e.nombre} ${preguntasDe(e).length}`).join(" · ")
+    menuInfo.textContent = `Preguntas: ` + EVENTOS.map((e) => `${titulo(e)} ${preguntasDe(e).length}`).join(" · ")
       + `\nControl: ${padNombre || "no detectado"}`;
   }
   function reiniciarInactividad() { clearTimeout(menuInactivo); menuInactivo = setTimeout(() => menuAbierto && cerrarMenu(), 30000); }
