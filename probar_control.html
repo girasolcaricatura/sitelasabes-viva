@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probar control · ¿Sí te la sabes?</title>
+<style>
+  @font-face { font-family: "Poppins"; src: url("assets/poppins-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+  @font-face { font-family: "Poppins"; src: url("assets/poppins-latin-800-normal.woff2") format("woff2"); font-weight: 800; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0A2B1B; color: #fff; font-family: "Poppins", Arial, sans-serif; min-height: 100vh; padding: 40px; }
+  h1 { font-size: 40px; font-weight: 800; }
+  .sub { font-size: 20px; color: #BFE2CF; margin: 8px 0 28px; }
+  #estado { font-size: 26px; font-weight: 800; padding: 16px 24px; border-radius: 16px; background: #173f2a; margin-bottom: 28px; }
+  #estado.si { background: #7CF06A; color: #0A2B1B; }
+  .botones { display: grid; grid-template-columns: repeat(6, 1fr); gap: 18px; }
+  .b { background: #173f2a; border: 4px solid #2c5e43; border-radius: 22px; padding: 22px 10px; text-align: center; transition: background .05s; }
+  .b .i { font-size: 72px; font-weight: 800; line-height: 1; }
+  .b .t { font-size: 20px; font-weight: 700; margin-top: 10px; color: #BFE2CF; }
+  .b.on { background: #7CF06A; border-color: #7CF06A; color: #0A2B1B; }
+  .b.on .t { color: #0A2B1B; }
+  .b.ok { border-color: #7CF06A; }
+  .lista { margin-top: 28px; font-size: 20px; color: #BFE2CF; line-height: 1.7; }
+  .lista b { color: #7CF06A; }
+  #crudo { margin-top: 24px; font: 15px/1.5 monospace; color: #8FC3A8; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+  <h1>Probar el control</h1>
+  <div class="sub">Conecta el control por USB y presiona cada botón. Si cada uno enciende su recuadro, el juego lo va a entender.</div>
+  <div id="estado">Control no detectado: conéctalo y presiona cualquier botón.</div>
+  <div class="botones">
+    <div class="b" id="izq"><div class="i">◀</div><div class="t">Jugador 1</div></div>
+    <div class="b" id="der"><div class="i">▶</div><div class="t">Jugador 2</div></div>
+    <div class="b" id="arriba"><div class="i">▲</div><div class="t">Sí la dijo</div></div>
+    <div class="b" id="abajo"><div class="i">▼</div><div class="t">No la dijo</div></div>
+    <div class="b ok" id="ok"><div class="i">A</div><div class="t">Continuar (A o B)</div></div>
+    <div class="b" id="start"><div class="i" style="font-size:46px;line-height:72px">START</div><div class="t">Abre el menú</div></div>
+  </div>
+  <div class="lista" id="lista"></div>
+  <div id="crudo"></div>
+<script>
+  // Misma lectura que el juego (juego.js → "control NES por USB"):
+  // la cruz se lee por dirección y cualquier otro botón es "continuar".
+  const vistos = new Set();
+  const ejeTrabado = {};
+  function accionesDe(pad) {
+    const act = new Set();
+    const std = pad.mapping === "standard";
+    const cruz = { 12: "arriba", 13: "abajo", 14: "izq", 15: "der" };
+    const start = pad.buttons.length >= 10 ? 9 : pad.buttons.length - 1;
+    pad.buttons.forEach((b, i) => { if (b.pressed) act.add(std && cruz[i] ? cruz[i] : (i === start ? "start" : "ok")); });
+    pad.axes.forEach((v, i) => {
+      const id = pad.index + ":" + i;
+      if (i === 9 && pad.axes.length >= 10) {
+        if (v > 1.1 || v < -1.1) return;
+        const pos = Math.round((v + 1) / (2 / 7));
+        act.add(["arriba", "arriba", "der", "abajo", "abajo", "abajo", "izq", "arriba"][pos] || "arriba");
+        return;
+      }
+      if (Math.abs(v) < 0.5) { ejeTrabado[id] = 0; return; }
+      ejeTrabado[id] = ejeTrabado[id] || performance.now();
+      if (performance.now() - ejeTrabado[id] > 5000) return;
+      if (i % 2 === 0) act.add(v < 0 ? "izq" : "der"); else act.add(v < 0 ? "arriba" : "abajo");
+    });
+    return act;
+  }
+  // Teclado de respaldo, con las mismas teclas que el juego.
+  const teclas = { ArrowLeft: "izq", ArrowRight: "der", ArrowUp: "arriba", ArrowDown: "abajo", Enter: "ok", " ": "ok", m: "start", Escape: "start" };
+  const teclado = new Set();
+  addEventListener("keydown", (e) => { if (teclas[e.key]) { teclado.add(teclas[e.key]); e.preventDefault(); } });
+  addEventListener("keyup", (e) => { if (teclas[e.key]) teclado.delete(teclas[e.key]); });
+  const nombres = { izq: "◀ jugador 1", der: "▶ jugador 2", arriba: "▲ sí", abajo: "▼ no", ok: "A continuar", start: "START menú" };
+  (function ciclo() {
+    const pads = navigator.getGamepads ? Array.from(navigator.getGamepads()).filter(Boolean) : [];
+    const act = new Set(teclado);
+    let crudo = "";
+    pads.forEach((p) => {
+      accionesDe(p).forEach((a) => act.add(a));
+      crudo += `Control: ${p.id}\nMapeo: ${p.mapping || "(no estándar: normal en controles genéricos)"}\n`
+        + `Botones presionados: ${p.buttons.map((b, i) => b.pressed ? i : null).filter((x) => x !== null).join(", ") || "ninguno"}\n`
+        + `Ejes: ${p.axes.map((v) => v.toFixed(2)).join("  ")}\n\n`;
+    });
+    ["izq", "der", "arriba", "abajo", "ok", "start"].forEach((a) => {
+      document.getElementById(a).classList.toggle("on", act.has(a));
+      if (act.has(a)) vistos.add(a);
+    });
+    const est = document.getElementById("estado");
+    if (pads.length) {
+      const faltan = ["izq", "der", "arriba", "abajo", "ok", "start"].filter((a) => !vistos.has(a));
+      est.className = faltan.length ? "" : "si";
+      est.textContent = faltan.length
+        ? "✓ Control conectado. Falta probar: " + faltan.map((a) => nombres[a]).join(" · ")
+        : "✓ ¡Listo! El control funciona con el juego.";
+    }
+    document.getElementById("crudo").textContent = crudo;
+    requestAnimationFrame(ciclo);
+  })();
+  document.getElementById("lista").innerHTML =
+    "Teclado de respaldo: <b>← →</b> jugadores · <b>↑</b> sí · <b>↓</b> no · <b>Enter</b> continuar · <b>M</b> menú.<br>" +
+    "Si algún recuadro no enciende, manda una foto de esta pantalla (los datos de abajo dicen qué manda el control).";
+</script>
+</body>
+</html>

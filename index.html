@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¿Sí te la sabes? · VIVA</title>
+<meta name="description" content="Demo del juego ¿Sí te la sabes? para la activación de VIVA Aerobus en Monterrey.">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+<div id="escenario" class="inicio">
+  <div id="contador"><div class="digitos">90</div><div class="leyenda">SEGUNDOS</div></div>
+
+  <!-- Inicio: confirmar el evento de hoy (arranca solo) -->
+  <div id="pantalla"></div>
+
+  <!-- Juego -->
+  <div id="tablero" class="lista">
+    <div id="lista"></div>
+    <div id="etiqueta"></div>
+    <div id="tarjeta">
+      <div id="pista"></div>
+      <div id="fichas"></div>
+    </div>
+  </div>
+
+  <!-- Barras de puntos a los lados: jugador 1 a la izquierda, jugador 2 a la derecha -->
+  <div class="barra-pts" id="b1"><span>0</span><div class="tubo"><i></i></div><b>J1</b></div>
+  <div class="barra-pts" id="b2"><span>0</span><div class="tubo"><i></i></div><b>J2</b></div>
+
+  <div id="jugadores">
+    <div class="jugador j1" id="j1"><span class="lado">◀</span><span class="nombre">JUGADOR 1</span><span class="estado"></span><span class="marcador">0</span></div>
+    <div class="jugador j2" id="j2"><span class="lado">▶</span><span class="nombre">JUGADOR 2</span><span class="estado"></span><span class="marcador">0</span></div>
+  </div>
+
+  <!-- Qué hace cada botón en este momento -->
+  <div id="ayuda"></div>
+
+  <div id="menu"><div class="panel">
+    <h2>Menú</h2>
+    <div class="sub">▲ ▼ moverse  ·  ◀ ▶ cambiar  ·  A elegir  ·  START cerrar</div>
+    <div id="menuOps"></div>
+    <div class="info" id="menuInfo"></div>
+    <div class="ayuda" id="menuPrueba"></div>
+  </div></div>
+</div>
+<script src="config.js"></script>
+<script src="datos/preguntas.js"></script>
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="juego.js"></script>
+<script src="web.js"></script>
+</body>
+</html>
