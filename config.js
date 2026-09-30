@@ -28,19 +28,20 @@ window.CONFIG = {
   },
 
   // Eventos del circuito (en el orden en que aparecen al configurar).
-  //   nombre: lo que se ve en pantalla.
+  //   nombre: el artista o equipo (se usa en el menú y para las preguntas).
+  //   gira:   nombre del tour; si existe, es lo que se ve en grande en pantalla.
   //   claves: qué bancos de preguntas usa (columna EVENTO del Excel).
   //           Un evento puede mezclar varios bancos, como el Clásico Regio.
   eventos: [
-    { nombre: "MAROON 5",       tipo: "CONCIERTO", fecha: "3 OCT",  claves: ["MAROON 5"] },
-    { nombre: "ALEJANDRO SANZ", tipo: "CONCIERTO", fecha: "17 OCT", claves: ["ALEJANDRO SANZ"] },
-    { nombre: "INTOCABLE",      tipo: "CONCIERTO", fecha: "7 NOV",  claves: ["INTOCABLE", "NORTEÑO"] },
-    { nombre: "ROD STEWART",    tipo: "CONCIERTO", fecha: "",       claves: ["ROD STEWART"] },
+    { nombre: "MAROON 5",       gira: "LOVE IS LIKE TOUR",    tipo: "CONCIERTO", fecha: "3 OCT",  claves: ["MAROON 5"] },
+    { nombre: "ALEJANDRO SANZ", gira: "¿Y AHORA QUÉ? TOUR",   tipo: "CONCIERTO", fecha: "17 OCT", claves: ["ALEJANDRO SANZ"] },
+    { nombre: "INTOCABLE",      gira: "CULTURA TOUR",         tipo: "CONCIERTO", fecha: "7 NOV",  claves: ["INTOCABLE", "NORTEÑO"] },
+    { nombre: "ROD STEWART",    gira: "THE FINAL RUN",        tipo: "CONCIERTO", fecha: "",       claves: ["ROD STEWART"] },
     { nombre: "TIGRES",         tipo: "PARTIDO",   fecha: "",       claves: ["TIGRES"] },
     { nombre: "RAYADOS",        tipo: "PARTIDO",   fecha: "",       claves: ["RAYADOS"] },
     { nombre: "CLÁSICO REGIO",  tipo: "PARTIDO",   fecha: "",       claves: ["TIGRES", "RAYADOS"] },
     { nombre: "BORREGOS",       tipo: "PARTIDO",   fecha: "",       claves: ["BORREGOS"] },
-    { nombre: "ANUEL AA",       tipo: "CONCIERTO", fecha: "",       claves: ["ANUEL AA"] }
+    { nombre: "ANUEL AA",       gira: "REAL HASTA LA MUERTE", tipo: "CONCIERTO", fecha: "8 ABR 2027", claves: ["ANUEL AA"] }
   ],
 
   // Sonidos del juego.

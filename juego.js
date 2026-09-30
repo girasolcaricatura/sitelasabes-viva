@@ -38,6 +38,8 @@
   if (!TIEMPOS.includes(ajustes.tiempo)) ajustes.tiempo = C.tiempo;
   if (!(ajustes.evento >= 0 && ajustes.evento < EVENTOS.length)) ajustes.evento = 0;
   const evento = () => EVENTOS[ajustes.evento];
+  // Lo que se ve en grande: el nombre del tour (si lo hay) o el del equipo.
+  const titulo = (ev) => ev.gira || ev.nombre;
   const guardarAjustes = () => guardar("stls.ajustes3", ajustes);
 
   /* ---------------------------------------------------------- escala */
@@ -228,8 +230,8 @@
     pantalla.append(
       el("div", "p-arriba", [el("span", "p-titulo", "El juego de hoy es de:")]),
       el("div", "p-valor", [
-        el("div", "grande", ev.nombre),
-        nq ? el("div", "detalle", [ev.tipo, ev.fecha].filter(Boolean).join(" · "))
+        el("div", "grande", titulo(ev)),
+        nq ? el("div", "detalle", (ev.gira ? [ev.nombre, ev.fecha] : [ev.tipo, ev.fecha]).filter(Boolean).join(" · "))
            : el("div", "aviso", "Este evento no tiene preguntas"),
         el("div", "tiempo", [el("span", "", "▲ ▼"), el("b", "", ajustes.tiempo + " segundos"), el("span", "", "por partida")])
       ]),
@@ -270,7 +272,7 @@
   }
   function paginasEspera() {
     return [
-      [{ t: "¿Sí te la sabes?", c: "titulo" }, { t: "Hoy: " + evento().nombre, c: "valor" }, { t: "¡Acércate y juega!" }],
+      [{ t: "¿Sí te la sabes?", c: "titulo" }, { t: titulo(evento()), c: "valor" }, { t: "¡Acércate y juega!" }],
       [{ t: "Cómo se juega", c: "titulo" }, { t: "Presiona tu botón antes que el otro", c: "chico" }, { t: "y di la palabra que falta", c: "chico" }]
     ];
   }
@@ -290,7 +292,7 @@
     clearInterval(rotacion); clearInterval(reloj); fase.fin = null;
     estado = "cuenta"; escenario.className = "juego";
     [1, 2].forEach((n) => { pj[n].pts = 0; pintarJugador(n); });
-    pintarLista([{ t: "¡A jugar!", c: "titulo" }, { t: evento().nombre, c: "valor" }, { t: "Prepárense…", c: "chico" }]);
+    pintarLista([{ t: "¡A jugar!", c: "titulo" }, { t: titulo(evento()), c: "valor" }, { t: "Prepárense…", c: "chico" }]);
     ayuda();
     SFX.campana();
     let n = 3; marcador(n, "¡PREPÁRENSE!");

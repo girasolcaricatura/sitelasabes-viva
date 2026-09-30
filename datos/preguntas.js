@@ -164,7 +164,6 @@ window.PREGUNTAS = {
     ["Ella quiere ___", "BEBER", "CANCION"],
     ["Hasta que Dios ___", "DIGA", "CANCION"],
     ["Mejor que ___", "YO", "CANCION"],
-    ["Real hasta la ___", "MUERTE", "DISCO"],
     ["Las leyendas nunca ___", "MUEREN", "DISCO"],
     ["Su disco con Ozuna se llama Los ___", "DIOSES", "PREGUNTA"],
     ["¿Cómo se llama su disco de 2020, que lleva su primer nombre?", "EMMANUEL", "PREGUNTA"],
