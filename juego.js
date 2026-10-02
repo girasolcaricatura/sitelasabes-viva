@@ -15,12 +15,13 @@
 
    El control se lee por DIRECCIÓN de la cruz y "cualquier otro botón",
    así que funciona igual aunque cada marca numere distinto sus botones.
-   Si nadie presiona nada, el juego sigue solo: nunca se queda trabado.
+   Ninguna pregunta se salta sin asignarse a un jugador; el reloj nunca se
+   detiene, así que la partida siempre termina a su tiempo.
    ============================================================ */
 (function () {
   "use strict";
   const C = window.CONFIG;
-  const T = Object.assign({ inicio: 15, pista: 20, contestar: 6, calificar: 15, resultados: 15 }, C.tiempos);
+  const T = Object.assign({ inicio: 15, contestar: 6, calificar: 15, resultados: 15 }, C.tiempos);
   const $ = (s) => document.querySelector(s);
   const escenario = $("#escenario"), pantalla = $("#pantalla");
   const tablero = $("#tablero"), lista = $("#lista"), etiqueta = $("#etiqueta");
@@ -345,8 +346,9 @@
     await espera(350);
     if (estado !== "pista") return;
     ocupado = false;
-    iniciarFase(T.pista, nadie);   // si nadie contesta en un buen rato, pasa sola
-    ayuda(["izq", "CONTESTA JUGADOR 1"], ["ok", "NADIE, PASAR"], ["der", "CONTESTA JUGADOR 2"]);
+    // Una pregunta nunca se salta: siempre se asigna a un jugador y se califica.
+    // (Si nadie se la sabe, el anfitrión marca a cualquiera y luego ▼.)
+    ayuda(["izq", "CONTESTA JUGADOR 1"], ["der", "CONTESTA JUGADOR 2"]);
   }
   // El anfitrión marca quién contestó primero. El reloj se detiene.
   function darTurno(n) {
@@ -384,19 +386,6 @@
     ocupado = false;
     nuevaPregunta();
   }
-  // Nadie contestó: se muestra la respuesta y sigue.
-  async function nadie() {
-    if (estado !== "pista") return;
-    estado = "resultado"; ocupado = true; fase.fin = null;
-    tarjeta.className = "mal";
-    ayuda();
-    await revelar();
-    await espera(1800);
-    if (estado !== "resultado") return;
-    ocupado = false;
-    nuevaPregunta();
-  }
-
   /* ---- 5. final: los dos ganan; se muestran los puntos de cada quien ---- */
   async function terminar(sinPreguntas = false) {
     if (!["pista", "contesta", "calificar", "resultado"].includes(estado)) return;
@@ -436,7 +425,6 @@
       case "pista":
         if (a === "izq") darTurno(1);
         else if (a === "der") darTurno(2);
-        else if (a === "ok") nadie();
         break;
       case "contesta":   // se puede corregir el jugador; para calificar primero hay que ver la respuesta
         if (a === "izq" && turno !== 1) darTurno(1);

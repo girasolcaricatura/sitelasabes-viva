@@ -52,7 +52,19 @@ window.PREGUNTAS = {
     ["¿Qué canción de 2012 se titula «luz del día» en inglés?", "DAYLIGHT", "PREGUNTA"],
     ["Su vocalista fue coach durante años del programa de talentos The ___", "VOICE", "PREGUNTA"],
     ["En 2019 la banda encabezó el show de medio tiempo del Super ___", "BOWL", "PREGUNTA"],
-    ["Su disco de 2021 lleva el apodo de su mánager fallecido, Jordan Feldstein: ___", "JORDI", "PREGUNTA"]
+    ["Su disco de 2021 lleva el apodo de su mánager fallecido, Jordan Feldstein: ___", "JORDI", "PREGUNTA"],
+    ["¿Cómo se apellida Adam, el vocalista de Maroon 5?", "LEVINE", "PREGUNTA"],
+    ["«Moves Like Jagger» la grabaron con la cantante Christina ___", "AGUILERA", "PREGUNTA"],
+    ["«What Lovers Do» la grabaron con la cantante estadounidense ___", "SZA", "PREGUNTA"],
+    ["«Don't Wanna Know» la grabaron con el rapero Kendrick ___", "LAMAR", "PREGUNTA"],
+    ["«Beautiful Mistakes» la grabaron con la rapera Megan Thee ___", "STALLION", "PREGUNTA"],
+    ["La melodía de «Memories» está inspirada en el famoso «Canon» del compositor ___", "PACHELBEL", "PREGUNTA"],
+    ["En el video de «Animals», Adam Levine interpreta a un ___ obsesionado", "CARNICERO", "PREGUNTA"],
+    ["Adam Levine está casado con la modelo namibia Behati ___", "PRINSLOO", "PREGUNTA"],
+    ["Adam Levine actuó en la película de 2013 «Begin ___»", "AGAIN", "PREGUNTA"],
+    ["La canción de Adam Levine nominada al Óscar por «Begin Again» se llama «Lost ___»", "STARS", "PREGUNTA"],
+    ["En 2005 Maroon 5 ganó el Grammy a Mejor Artista ___", "NUEVO", "PREGUNTA"],
+    ["Maroon 5 tuvo una residencia de conciertos en la ciudad de Las ___", "VEGAS", "PREGUNTA"]
   ],
 
   "ALEJANDRO SANZ": [
@@ -90,6 +102,13 @@ window.PREGUNTAS = {
     ["¿En qué ciudad nació el cantante?", "MADRID", "PREGUNTA"],
     ["¿De qué país es el cantante?", "ESPAÑA", "PREGUNTA"],
     ["¿Qué género musical andaluz se escucha en muchas de sus canciones?", "FLAMENCO", "PREGUNTA"],
+    ["Su disco de 2021 lleva su apellido artístico: ___", "SANZ", "PREGUNTA"],
+    ["El nombre real de Alejandro Sanz es Alejandro Sánchez ___", "PIZARRO", "PREGUNTA"],
+    ["Alejandro Sanz es el artista español con más premios ___", "GRAMMY", "PREGUNTA"],
+    ["¿Con qué cantante colombiana grabó «La tortura»?", "SHAKIRA", "PREGUNTA"],
+    ["Regálame la silla donde te ___", "ESPERÉ", "CANCION"],
+    ["Llamando a la mujer ___", "ARAÑA", "CANCION"],
+    ["A la primera ___", "PERSONA", "CANCION"]
   ],
 
   "INTOCABLE": [
@@ -103,7 +122,8 @@ window.PREGUNTAS = {
     ["¿De qué estado de Estados Unidos es el grupo?", "TEXAS", "PREGUNTA"],
     ["¿En qué pueblo de Texas nació el grupo?", "ZAPATA", "PREGUNTA"],
     ["La guitarra de doce cuerdas típica del norteño se llama bajo ___", "SEXTO", "PREGUNTA"],
-    ["¿Cómo se llama la música de los mexicanos de Texas que toca el grupo?", "TEJANO", "PREGUNTA"]
+    ["¿Cómo se llama la música de los mexicanos de Texas que toca el grupo?", "TEJANO", "PREGUNTA"],
+    ["¿Cómo se apellida Ricky, el vocalista y acordeonista de Intocable?", "MUÑOZ", "PREGUNTA"]
   ],
 
   // Se mezcla con el banco de INTOCABLE (ver config.js).
@@ -153,7 +173,9 @@ window.PREGUNTAS = {
     ["Desde 2016 es caballero británico, así que antes de su nombre lleva el título de ___", "SIR", "PREGUNTA"],
     ["«All for Love» la grabó con Bryan Adams y ___", "STING", "PREGUNTA"],
     ["¿En qué playa de Río de Janeiro dio un concierto histórico en 1994?", "COPACABANA", "PREGUNTA"],
-    ["Su gran pasatiempo es armar maquetas gigantes de ___", "TRENES", "PREGUNTA"]
+    ["Su gran pasatiempo es armar maquetas gigantes de ___", "TRENES", "PREGUNTA"],
+    ["Ronnie Wood, su compañero en The Faces, después entró a The Rolling ___", "STONES", "PREGUNTA"],
+    ["«Da Ya Think I'm Sexy?» (1978) tiene el ritmo de la música ___", "DISCO", "PREGUNTA"]
   ],
 
   "ANUEL AA": [
@@ -171,7 +193,12 @@ window.PREGUNTAS = {
     ["El remix de «Sola» lo grabó con Daddy Yankee, Wisin, Farruko y Zion & ___", "LENNOX", "PREGUNTA"],
     ["«Adicto» la grabó con Ozuna y el productor ___", "TAINY", "PREGUNTA"],
     ["«Hasta que Dios diga» la grabó con Bad ___", "BUNNY", "PREGUNTA"],
-    ["Además del reguetón, su género es el ___ latino", "TRAP", "PREGUNTA"]
+    ["Además del reguetón, su género es el ___ latino", "TRAP", "PREGUNTA"],
+    ["¿Cómo se llama su disco de 2020, que lleva su primer nombre?", "EMMANUEL", "PREGUNTA"],
+    ["El nombre real de Anuel AA es Emmanuel ___ Santiago", "GAZMEY", "PREGUNTA"],
+    ["Su disco de 2024 se llama «___»", "ROMPECORAZONES", "PREGUNTA"],
+    ["«China» usa parte de la melodía de «Hips Don't Lie», de ___", "SHAKIRA", "PREGUNTA"],
+    ["¿En qué año nació Anuel AA?", "1992", "PREGUNTA"]
   ],
 
   "TIGRES": [

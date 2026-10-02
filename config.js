@@ -17,11 +17,10 @@ window.CONFIG = {
   // aquí, las barras se reajustan solas).
   puntosBarra: 100,
 
-  // Tiempos de seguridad (en segundos, no se ven en pantalla): si nadie
-  // presiona nada, el juego avanza solo y nunca se queda trabado.
+  // Tiempos de seguridad (en segundos, no se ven en pantalla). Una pregunta
+  // nunca se salta sin asignarse a un jugador.
   tiempos: {
     inicio: 15,      // al encender: si nadie cambia el evento, arranca solo
-    pista: 20,       // si nadie contesta una pregunta, se muestra la respuesta y sigue
     contestar: 6,    // después de marcar quién contesta, la respuesta aparece sola
     calificar: 15,   // si nadie califica, cuenta como que no se la sabe
     resultados: 15   // pantalla de ganador antes de volver a la espera
